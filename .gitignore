@@ -1,0 +1,4 @@
+*.o
+ESP SIM/main
+Server/a.out
+Server/main
