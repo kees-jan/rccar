@@ -1,34 +1,32 @@
 #ifndef TCP_MANAGER_H
 #define TCP_MANAGER_H
-#include <iostream>
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/socket.h>
-#include <netdb.h>
 #include <arpa/inet.h>
+#include <iostream>
+#include <netdb.h>
 #include <string.h>
 #include <string>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-
-
-class TCPManager
-{
+class TCPManager {
 public:
-    ~TCPManager();
+  ~TCPManager();
 
-    bool GetConnection(int port);
+  bool StartListening(int port);
+  bool GetConnection();
+  void StopListening();
 
-    bool Send(std::string value);
+  bool Send(std::string value);
 
-    bool Receive(std::string* value);
+  bool Receive(std::string *value);
 
-    void CloseConnection();
-    
-private: 
-    int         clientSocket = 0;
-    std::string clientIp;
+  void CloseConnection();
 
+private:
+  int listening = 0;
+  int clientSocket = 0;
+  std::string clientIp;
 };
-
 
 #endif
