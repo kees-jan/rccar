@@ -18,21 +18,20 @@ OBJECTS=$(SOURCES:.cpp=.o)
 PRODUCT = main
 TESTPRODUCT = test_$(PRODUCT)
 
-.phony: $(PRODUCT) clean $(TESTPRODUCT)
+.phony: all clean
 
-all: $(PRODUCT) obj
+all: $(PRODUCT)
 
-$(PRODUCT): $(SOURCES) $(HEADERS) Makefile
-	@$(CXX) $(CXXFLAGS) $(SOURCES) -o $@ $(LIBS)
+$(PRODUCT): $(OBJECTS) $(HEADERS) Makefile
+	$(CXX) -o $@ $(OBJECTS)  $(LIBS)
 
-obj: $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS)
+$(OBJECTS): $(HEADERS) Makefile 
 
 $(TESTPRODUCT): $(TEST_SOURCES) $(TEST_HEADERS) Makefile
-	@$(CXX) $(CXXFLAGS) $(TEST_SOURCES) -o $@ $(TEST_LIBS)
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) -o $@ $(TEST_LIBS)
 
 clean:
 	@rm -f $(PRODUCT) $(OBJECTS) $(TESTPRODUCT) *.out
 
 test: $(TESTPRODUCT)
-	@./$(TESTPRODUCT)
+	./$(TESTPRODUCT)

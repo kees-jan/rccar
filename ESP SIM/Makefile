@@ -7,10 +7,12 @@ TARGET = main
 
 .PHONY: all clean
 
-all: $(TARGET) $(OBJECTS)
+all: $(TARGET) 
 
-$(TARGET): $(SOURCES) $(HEADERS) Makefile
-	@$(CXX) $(CXXFLAGS) -o $@ $(SOURCES)
+$(TARGET): $(HEADERS) Makefile $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJECTS)
+	
+$(OBJECTS): $(HEADERS) Makefile 
 
 clean:
 	@rm -f $(TARGET) $(OBJECTS)
