@@ -22,7 +22,7 @@ TESTPRODUCT = test_$(PRODUCT)
 
 all: $(PRODUCT)
 
-$(PRODUCT): $(OBJECTS) $(HEADERS) Makefile
+$(PRODUCT): $(OBJECTS) ../common/libcommon.a
 	$(CXX) -o $@ $(OBJECTS)  $(LIBS) ../common/libcommon.a
 
 $(OBJECTS): $(HEADERS) Makefile 
