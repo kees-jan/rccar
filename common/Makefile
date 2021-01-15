@@ -1,5 +1,5 @@
 CXX = g++
-CPPFLAGS = -Iinc -Isrc -Itest -I../common/inc
+CPPFLAGS = -Iinc -Isrc -Itest
 CXXFLAGS = -Wall -Werror -Wextra -pedantic -ggdb -O0 $(CPPFLAGS) -std=c++11
 
 LIBS = -lpthread
@@ -15,20 +15,16 @@ TEST_HEADERS = $(HEADERS) \
 
 OBJECTS=$(SOURCES:.cpp=.o)
 
-PRODUCT = main
-TESTPRODUCT = test_$(PRODUCT)
+PRODUCT = libcommon.a
 
 .phony: all clean
 
 all: $(PRODUCT)
 
-$(PRODUCT): $(OBJECTS) $(HEADERS) Makefile
-	$(CXX) -o $@ $(OBJECTS)  $(LIBS) ../common/libcommon.a
+$(PRODUCT): $(OBJECTS)
+	ar rcs $@ $^
 
 $(OBJECTS): $(HEADERS) Makefile 
-
-$(TESTPRODUCT): $(TEST_SOURCES) $(TEST_HEADERS) Makefile
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) -o $@ $(TEST_LIBS)
 
 clean:
 	@rm -f $(PRODUCT) $(OBJECTS) $(TESTPRODUCT) *.out

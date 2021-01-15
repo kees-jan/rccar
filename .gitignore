@@ -2,3 +2,4 @@
 ESP SIM/main
 Server/a.out
 Server/main
+common/libcommon.a
